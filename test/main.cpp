@@ -43,6 +43,8 @@ void init_dfastate(); // dfastate를 초기화 시키기 위한 함수
 vector<vector<string>> adjust_CV (vector<vector<string>> CV); // error handling 을 위한 함수, 2차원 벡터를 순회하여 에러가 발생하는 곳을 고치고, 올바른 2차원 벡터를 반환한다.
 void Write_to_File (vector<vector<string>> CV); // output을 write하기 위한 함수이다.
 
+int line = 0; // error line check
+
 int main(int argc, const char * argv[]) {
     ifstream fin("test.c");
     string buffer;
@@ -69,10 +71,9 @@ int main(int argc, const char * argv[]) {
         
         //buffer에 저장되어 있는 값이 어떤 DFA에 accept되는가?
         Lex = lex_generator(buffer);
-        cout << Lex << endl;
         //그 DFA에 따라서 switch문을 돌게 된다.
         switch(Lex){
-            case Vtype:
+                case Vtype:
                 elemV = {buffer, "vtype"};
                 CV.pop_back();
                 CV.push_back(elemV);
@@ -108,6 +109,7 @@ int main(int argc, const char * argv[]) {
                 CV.push_back(elemV);
                 break;
             case WhiteSpace:
+                if(ch == '\n') line++;
                 elemV = {buffer, "WhiteSpace"};
                 CV.pop_back();
                 CV.push_back(elemV);
@@ -169,13 +171,13 @@ int main(int argc, const char * argv[]) {
                 break;
             case Reject:
                 if(buffer[buffer.length()-2] == '.'){
-                    cout << "error at ." << endl;
+                    cout << "error at ." << endl << "Error line is " << line+1 << endl;
                     exit(2);
                 }
                 else{
                     if(ch == '.'){
                         if(buffer.front() != '0' && buffer.front() != '1' && buffer.front() != '2' && buffer.front() != '3' && buffer.front() != '4' && buffer.front() != '5' && buffer.front() != '6' && buffer.front() != '7' && buffer.front() != '8' && buffer.front() != '9' && buffer.front() != '-'){
-                            cout << "error at " << ch << endl;
+                            cout << "error at " << ch << endl << "Error line is " << line+1 << endl;
                             exit(1);
                         }
                         break;
@@ -273,6 +275,7 @@ int main(int argc, const char * argv[]) {
                             buffer += ch;
                             break;
                         case WhiteSpace:
+                            if(ch == '\n') line++;
                             elemV = {string(1,ch), "WhiteSpace"};
                             CV.push_back(elemV);
                             buffer = "";
@@ -925,7 +928,7 @@ vector<vector<string>> adjust_CV (vector<vector<string>> CV){
 
     // IF there is Odd Quotes "ERROR"
     else if(quotes_cnt%2 == 1){
-        cout << "Quotes not match" << endl;
+        cout << "Quotes not match" << endl << "Error line is " << line+1 << endl;
         exit(3);
     }
     
@@ -946,7 +949,7 @@ vector<vector<string>> adjust_CV (vector<vector<string>> CV){
     // Rejecting if only '!' appeared
     for(int i = 0; i < new_CV.size(); i++){
         if(new_CV[i][1] == "Reject") {
-            cout << "There is '!' error!" << endl;
+            cout << "There is '!' error!" << endl << "Error line is " << line+1 << endl;
             exit(4);
         }
     }

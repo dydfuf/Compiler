@@ -934,7 +934,7 @@ vector<vector<string>> adjust_CV (vector<vector<string>> CV){
     
     // Reduce QUOTES And WhiteSpace in CV
     for(int i = 0; i < new_CV.size(); i++){
-        if(new_CV[i][1] == "QUOTES" || new_CV[i][1] == "WhiteSpace"){
+        if(new_CV[i][1] == "QUOTES" || (new_CV[i][1] == "WhiteSpace" && new_CV[i][0] == " ")){
             list.push_back(i);
         }
     }

@@ -1,7 +1,7 @@
 int main() {
     char grade_JeongJae = "A";
     char grade_KyeongMin = "A plus";
-    int score = 0 + 30;
+    score = 0 + 30;
     return 0;
 }
 

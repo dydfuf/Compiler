@@ -28,44 +28,45 @@ int string_to_num(string s);
 stack<int> state;
 
 /* array save all terminals and non_terminals */
-string term_and_non[36] = {
+string term_and_non[37] = {
 
     "vtype",     /* 0  */
-    "num",        /* 1  */
-    "float",    /* 2  */
-    "literal",    /* 3  */
+    "num",       /* 1  */
+    "float",     /* 2  */
+    "literal",   /* 3  */
     "id",        /* 4  */
     "if",        /* 5  */
-    "else",        /* 6  */
-    "while",    /* 7  */
-    "for",        /* 8  */
+    "else",      /* 6  */
+    "while",     /* 7  */
+    "for",       /* 8  */
     "return",    /* 9  */
     "addsub",    /* 10 */
-    "multdiv",    /* 11 */
+    "multdiv",   /* 11 */
     "assign",    /* 12 */
-    "comp",        /* 13 */
-    "semi",        /* 14 */
-    "comma",    /* 15 */
+    "comp",      /* 13 */
+    "semi",      /* 14 */
+    "comma",     /* 15 */
     "lparen",    /* 16 */
     "rparen",    /* 17 */
     "lbrace",    /* 18 */
     "rbrace",    /* 19 */
-    "$",        /* 20 */
-    "CODE",        /* 21 */
-    "VDECL",    /* 22 */
-    "FDECL",    /* 23 */
-    "ARG",        /* 24 */
-    "MOREARGS",    /* 25 */
-    "BLOCK",    /* 26 */
-    "STMT",        /* 27 */
+    "$",         /* 20 */
+    "CODE",      /* 21 */
+    "VDECL",     /* 22 */
+    "FDECL",     /* 23 */
+    "ARG",       /* 24 */
+    "MOREARGS",  /* 25 */
+    "BLOCK",     /* 26 */
+    "STMT",      /* 27 */
     "ASSIGN",    /* 28 */
-    "RHS",        /* 29 */
-    "EXPR",        /* 30 */
-    "TERM",        /* 31 */
+    "RHS",       /* 29 */
+    "EXPR",      /* 30 */
+    "TERM",      /* 31 */
     "FACTOR",    /* 32 */
-    "COND",        /* 33 */
-    "RETURN"    /* 34 */
-    "ELSE"        /* 35 */
+    "COND",      /* 33 */
+    "RETURN",    /* 34 */
+    "ELSE",      /* 35 */
+    "WhiteSpace" /* 36 */
 };
 
 

@@ -1,5 +1,7 @@
 #include "slr_table.h"
 
+int line = 0;
+
 int main() {
 
     /*input file*/
@@ -20,7 +22,7 @@ int main() {
     /* save the input terminal in vector */
     while (!fin.eof()) {
         getline(fin, term);
-        for (int i = 0; i < 36; i++) {
+        for (int i = 0; i < 37; i++) {
                 if (term == term_and_non[i]) {
                     input_to_int.push_back(i);
                 }
@@ -63,9 +65,14 @@ int main() {
                 break;
             }
         }
-        else
-            /* ex) .id * id -> input_str[0]=id */
+        else{
+            if(input_to_int[bar] == 36){
+                line++;
+                input_to_int.erase(input_to_int.begin() + (bar-1));
+            }
             input = input_to_int[bar];
+        }
+            /* ex) .id * id -> input_str[0]=id */
 
         /* load the value in parsing table */
         table_info = int_table[state.top()][input];
@@ -85,7 +92,7 @@ int main() {
 
         /* REJECT */
         if (table_info == 0) {
-            cout << "Reject!!" << endl;
+            cout << "Reject!!" << endl << "Error at line " << line << endl;
             break;
         }
 
